@@ -1,36 +1,30 @@
-import pandas as pd
 import os
-import talib
-
+import pandas as pd
+import pandas_ta as ta
 
 def compute_indicators(df):
-    """
-    Compute technical indicators for stock data.
-
-    Parameters:
-        df (pd.DataFrame): Cleaned stock data.
-
-    Returns:
-        pd.DataFrame: Data with indicators.
-    """
-    df["SMA_50"] = talib.SMA(df["Close"], timeperiod=50)
-    df["SMA_200"] = talib.SMA(df["Close"], timeperiod=200)
-    df["RSI"] = talib.RSI(df["Close"], timeperiod=14)
-    df["MACD"], df["MACD_signal"], _ = talib.MACD(df["Close"], fastperiod=12, slowperiod=26, signalperiod=9)
-    df["Volatility"] = df["Close"].rolling(window=20).std()
-    df.dropna(inplace=True)  # Drop rows with NaN values after indicator calculations
+    df.ta.sma(length=50, append=True)  # 50-day SMA
+    df.ta.sma(length=200, append=True)  # 200-day SMA
+    df.ta.rsi(length=14, append=True)  # RSI
+    df.ta.macd(append=True)  # MACD
+    df["Volatility"] = df["Close"].rolling(window=20).std()  # 20-day rolling volatility
+    df.dropna(inplace=True)  # Remove NaNs
     return df
 
-
 if __name__ == "__main__":
-    # Process all cleaned stock files
-    stock_files = [f for f in os.listdir("data/processed/") if f.startswith("cleaned_")]
+    processed_path = "data/processed/"
+    stock_files = [f for f in os.listdir(processed_path) if f.startswith("cleaned_")]
+
+    if not stock_files:
+        print("⚠️ No cleaned stock files found. Run `data_preprocessing.py` first!")
+        exit()
 
     for file in stock_files:
-        file_path = os.path.join("data", "processed", file)
+        file_path = os.path.join(processed_path, file)
         df = pd.read_csv(file_path, index_col=0, parse_dates=True)
 
         df = compute_indicators(df)
 
-        df.to_csv(f"data/processed/featured_{file.replace('cleaned_', '')}")
-        print(f"Features added to: {file}")
+        output_file = file.replace("cleaned_", "featured_")
+        df.to_csv(os.path.join(processed_path, output_file))
+        print(f"✅ Features added to: {output_file}")
