@@ -11,6 +11,42 @@ This project aims to build a **Machine Learning (ML) model** to predict small-ca
 - ✅ **Backtest the strategy** and analyze risk-adjusted returns.
 
 ---
+##✅ **Time-Series Classification Sequence**
+This sequence explains how time-series classification is applied in this project.
+
+1️⃣ Collect Stock Data (2015-2025)
+
+Download daily stock price data from Yahoo Finance (yfinance).
+Each stock’s data is stored chronologically to preserve time dependencies.
+2️⃣ Feature Engineering (Extracting Time-Series Indicators)
+
+Compute rolling-window indicators like SMA, RSI, MACD, Volatility to detect trends.
+These indicators summarize past price movements over different time periods.
+3️⃣ Label Creation (Defining the Prediction Target)
+
+Label each stock as 1 (price increases) or 0 (price decreases).
+The next day’s close price determines the label.
+4️⃣ Time-Aware Train-Test Splitting
+
+Training: 2016-2020 (past data).
+Testing: 2020-2025 (future data).
+No random shuffling—models must learn in chronological order.
+5️⃣ Training ML Models on Sequential Data
+
+Models detect patterns from past trends to predict stock movement.
+Decision Tree, Logistic Regression, AdaBoost, PCA, and K-Means are trained on historical sequences.
+6️⃣ Backtesting on Unseen Future Data
+
+The model selects top 10 stocks per year (2020-2025) based on predictions.
+Simulated portfolio returns are compared with Russell 2000.
+7️⃣ Performance Evaluation
+
+Accuracy of predictions (did the stock move as expected?).
+Portfolio performance metrics (CAGR, Sharpe Ratio).
+Adjustments based on model results to improve future performance.
+📌 Outcome:
+By maintaining chronological order, using rolling features, and testing on future unseen data, this project ensures true time-series classification.
+---
 
 ## 📂 **2. Project Structure**
 ```
