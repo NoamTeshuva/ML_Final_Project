@@ -6,7 +6,7 @@ This project aims to build a **Machine Learning (ML) model** to predict small-ca
 ## 🚀 **1. Project Goals**
 - ✅ Use **Yahoo Finance** to collect stock data (2015-2025).
 - ✅ Extract **technical indicators** (SMA, RSI, MACD, Volatility).
-- ✅ Train **Decision Tree & Logistic Regression models** to predict stock movements.
+- ✅ Train **multiple ML models** to predict stock movements.
 - ✅ Select the **top 10 best stocks per year** (2020-2025) and compare performance against Russell 2000.
 - ✅ **Backtest the strategy** and analyze risk-adjusted returns.
 
@@ -67,8 +67,10 @@ Date,Open,High,Low,Close,Volume
 ### 📌 **3️⃣ Model Training (`model_training.py`)**
 - **Trained on 2015-2020 stock data.**
 - **Models Used:**
+  - ❌ **SVM (Did not work due to slow training on large datasets)**
   - ✅ Decision Tree
   - ✅ Logistic Regression
+  - 🟡 Clustering (To be added)
 - **Saved models in `models/` directory.**
 
 ✅ **Example Accuracy Scores:**
@@ -125,6 +127,8 @@ python project/src/backtesting.py           # Compare ML portfolio vs. Russell 2
 ## 📌 **5. Next Steps**
 - 🟢 **Optimize stock selection using advanced ML models (XGBoost, Random Forest).**
 - 🟢 **Improve feature selection for better accuracy.**
+- 🟢 **Add Clustering for exploratory data analysis.**
+- 🟢 **If time allows, implement Adaboost & PCA.**
 - 🟢 **Deploy a dashboard to visualize stock predictions.**
 
 ---
