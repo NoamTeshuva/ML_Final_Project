@@ -24,13 +24,16 @@ ML_final_project/
 │   ├── models/                # Trained ML models
 │   │   ├── dt_model.joblib    # Decision Tree model
 │   │   ├── log_model.joblib   # Logistic Regression model
+│   │   ├── adaboost_model.joblib   # Adaboost model
+│   │   ├── pca_model.joblib   # PCA model
+│   │   ├── kmeans_model.joblib # K-Means Clustering model
 │   │
 │   ├── src/                   # Source code
 │   │   ├── data_acquisition.py     # Fetch stock data from Yahoo Finance
 │   │   ├── data_preprocessing.py   # Clean and prepare stock data
 │   │   ├── feature_engineering.py  # Generate technical indicators
 │   │   ├── model_preparation.py    # Merge and split training/testing datasets
-│   │   ├── model_training.py       # Train ML models (Decision Tree & Logistic Regression)
+│   │   ├── model_training.py       # Train ML models (Decision Tree, Logistic Regression, AdaBoost, PCA, Clustering)
 │   │   ├── model_testing.py        # Test model accuracy on unseen data
 │   │   ├── backtesting.py          # Evaluate strategy vs. Russell 2000
 │
@@ -70,37 +73,32 @@ Date,Open,High,Low,Close,Volume
   - ❌ **SVM (Did not work due to slow training on large datasets)**
   - ✅ Decision Tree
   - ✅ Logistic Regression
-  - 🟡 Clustering (To be added)
+  - ✅ AdaBoost
+  - ✅ PCA (for dimensionality reduction)
+  - ✅ K-Means Clustering (for exploratory analysis)
 - **Saved models in `models/` directory.**
 
-✅ **Example Accuracy Scores:**
-```
-✅ Model Training Completed
-Decision Tree Accuracy: 69.8%
-Logistic Regression Accuracy: 71.2%
-```
+
 
 ### 📌 **4️⃣ Model Testing (`model_testing.py`)**
 - **Evaluates models on 2020-2025 data.**
+- ❌ **Initial Accuracy was ~50% (Random Guessing).**
+- ✅ **Identified issues:**
+  - Dataset imbalance
+  - Features not contributing significantly
+  - Model not learning effectively
+- ✅ **Fixes Applied:**
+  - Feature selection improvements
+  - Data balancing (SMOTE)
+  - Extended training period (2016-2020 instead of 2018-2020)
 
-✅ **Example Results:**
-```
-✅ Model Testing Completed
-Decision Tree Accuracy: 65.5%
-Logistic Regression Accuracy: 70.1%
-```
+
 
 ### 📌 **5️⃣ Portfolio Backtesting (`backtesting.py`)**
 - **Selects top 10 predicted stocks per year (2020-2025).**
 - **Compares returns vs. Russell 2000.**
 
-✅ **Example Backtest Results:**
-```
-✅ Backtesting Completed
-ML Portfolio CAGR: 12.5%
-Russell 2000 CAGR: 9.1%
-Sharpe Ratio: 1.42
-```
+
 
 ---
 
@@ -117,7 +115,7 @@ python project/src/data_acquisition.py      # Fetch stock data
 python project/src/data_preprocessing.py    # Clean data
 python project/src/feature_engineering.py   # Generate technical indicators
 python project/src/model_preparation.py     # Create training/testing datasets
-python project/src/model_training.py        # Train Decision Tree & Logistic Regression
+python project/src/model_training.py        # Train Decision Tree, Logistic Regression, AdaBoost, PCA, K-Means
 python project/src/model_testing.py         # Test model accuracy
 python project/src/backtesting.py           # Compare ML portfolio vs. Russell 2000
 ```
@@ -127,8 +125,7 @@ python project/src/backtesting.py           # Compare ML portfolio vs. Russell 2
 ## 📌 **5. Next Steps**
 - 🟢 **Optimize stock selection using advanced ML models (XGBoost, Random Forest).**
 - 🟢 **Improve feature selection for better accuracy.**
-- 🟢 **Add Clustering for exploratory data analysis.**
-- 🟢 **If time allows, implement Adaboost & PCA.**
+- 🟢 **Enhance dataset balancing techniques.**
 - 🟢 **Deploy a dashboard to visualize stock predictions.**
 
 ---
